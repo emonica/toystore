@@ -1,0 +1,43 @@
+{% extends "main.html" %}
+{% block content %}
+    <div class = 'header clearfix text-center'>
+        <h3>Our Stores</h3>
+    </div>
+
+    <div class = 'flash'>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                
+                <ul>
+                {% for message in messages %}
+                    <li> <strong> {{ message }} </strong> </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class = 'table-responsive'>
+        <table class = 'table table-striped'>
+            <colgroup>
+                <col class = 'col-sm-4'>
+                <col class = 'col-sm-8'>
+            </colgroup>
+            <tbody>
+                {% for s in stores %}
+                <tr>
+                    <td> 
+                        <a href="{{url_for('storeToys', store_id=s.id)}}">
+                            {{s.name}}
+                        </a>
+                    </td>
+                    <td>
+                        <p>{{s.url}}</p>
+                        <p>{{'' if not s.address else s.address}}</p>  
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

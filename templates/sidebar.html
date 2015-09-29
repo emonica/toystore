@@ -1,0 +1,8 @@
+<ul class='nav nav-sidebar'>
+    <h4 class="sidebar-head">Stores</h4>
+    {% for s in g.stores %}
+    <li>
+        <a href="{{url_for('storeToys', store_id=s.id)}}">{{s.name}}</a>
+    </li>
+    {% endfor %}
+</ul>

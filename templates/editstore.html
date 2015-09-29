@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+{% block content %}
+    <div class = 'header clearfix text-center'>
+        <h3>Edit Store</h3>
+    </div>
+
+    <form action="{{ url_for('editStore',store_id = store.id)}}" method='post'>
+        <div class='form-group'>
+            <label for='name'>Name</label>
+            <input type='text' maxlength='80' name='name' 
+                   class='form-control' value='{{store.name}}'>
+
+            <label for='url'>Website</label>
+            <input type='text' maxlength='250' name='url' 
+                   class='form-control' 
+                   value='{{store.url}}'>
+            
+            <label for='address'>Address</label>
+            <textarea maxlength='250' rows='3' name='address' 
+                   class='form-control'>{{store.address}}</textarea>    
+        </div>
+
+        <button type='submit' class ='btn btn-primary'>Edit</button>
+        <a class='btn btn-default'
+            href='{{url_for('showStores')}}'> Cancel </a>
+    </form>
+{% endblock %}

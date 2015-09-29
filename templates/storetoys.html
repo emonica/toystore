@@ -1,0 +1,63 @@
+{% extends "main.html" %}
+{% block content %}
+    <h3 class='text-center'>{{ store.name }}</h3>
+    
+    {% if not toys %}
+    <div>
+        <p> There are currently no toys in this store. </p>
+    </div>
+    {% endif %}
+
+    <div class = 'link-new text-right'>
+        <a class = 'btn btn-primary'
+           href = '{{url_for('newStoreToy', store_id = store.id) }}'>
+        <span  class="glyphicon glyphicon-plus-sign"></span>
+        Create New Toy
+        </a>
+    </div>
+
+    <div class = 'flash'>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    </div>
+
+    <div class = 'table-responsive'>
+        <table class = 'table table-striped'>
+            <colgroup>
+                <col class='col-xs-3'>
+                <col class='col-xs-6'>
+                <col class='col-xs-3'>
+            </colgroup>
+            <tbody>
+                {% for i in toys %}
+                <tr>
+                    <td>
+                        <img src="{{i.img_url}}" alt="{{i.name}}"
+                            width="100" class="img-responsive img-rounded">
+                    </td>
+                    <td> 
+                        <a href="{{url_for('showToy', store_id=store.id, toy_id=i.id)}}">{{i.name}}</a>
+                        <p class = 'text-muted'><small>{{i.description}}</small></p>
+                    </td>
+                    <td>
+                        {% if i.price %}
+                        <p class='text-center'>${{'%0.2f' % i.price}} </p>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-right">
+        <a href="{{url_for('showStores')}}">Back to store list </a>
+    </div>
+{% endblock %}

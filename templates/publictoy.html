@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+{% block content %}
+    <div class = 'header clearfix'>
+        <h3 class="text-center">{{toy.name}}</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-5">
+            <p><img src="{{toy.img_url}}" alt="{{toy.name}}"
+                width="300" class="img-responsive img-rounded"></p>
+        </div>
+        <div class="col-sm-5">
+            <p>{{toy.description}}</p>
+            <p>Minimum age: {{toy.age_min}}</p>
+            <p>{{toy.url}}</p>
+        </div>
+        <div class="col-sm-2">
+            <p class="text-right">{% if toy.price %}
+                <strong>${{'%0.2f' % toy.price}}</strong>
+            {% endif %}</p>
+        </div>
+    </div>
+    
+    <br>
+    <p class="text-right">
+        <a href = "{{url_for('storeToys', store_id=store_id)}}"> Back to store </a></p>
+
+    </form>
+{% endblock %}

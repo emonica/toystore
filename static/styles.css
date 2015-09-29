@@ -1,0 +1,64 @@
+body {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    overflow-x: hidden;
+}
+
+.table > tbody > tr > td.main {
+    border-top: 0;
+}
+
+.sidebar {
+    border-right: 1px solid #ddd;;
+}
+
+.sidebar-head {
+    padding: 10px 15px;
+}
+
+a.edit_delete {
+    color: red;
+}
+
+.table-responsive#main {
+    overflow-x: hidden;
+}
+
+.header#mainheader {
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 20px;
+}
+
+.header h3 {
+	line-height: 40px;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+
+.link-new {
+  padding-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 1000px;
+  }
+}
+
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+
+@media screen and (min-width: 768px) {
+    .header {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .header {
+        margin-bottom: 30px;
+    }
+}

@@ -1,0 +1,62 @@
+{% extends "main.html" %}
+{% block content %}
+
+    <div class = 'header clearfix text-center'>
+        <h3>Latest entries</h3>
+    </div>
+    
+    {% if not toys %}
+    <div>
+        <p> There are currently no toys. </p>
+    </div>
+    {% endif %}
+
+    <div class = 'flash'>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    </div>
+
+    <div class = 'table-responsive'>
+        <table class = 'table table-striped'>
+            <colgroup>
+                <col class='col-xs-2'>
+                <col class='col-xs-6'>
+                <col class='col-xs-2'>
+                <col class='col-xs-2'>
+            </colgroup>
+            <tbody>
+                {% for i in toys %}
+                <tr>
+                    <td>
+                        <img src="{{i.img_url}}" alt="{{i.name}}"
+                            width="100" class="img-responsive img-rounded">
+                    </td>
+                    <td> 
+                        <p>{{i.name}}</p>
+                        <p class = 'text-muted'><small>{{i.description}}</small></p>
+                    </td>
+                    <td>
+                        <a href="{{url_for('storeToys', store_id=i.store_id)}}">{{i.store.name}}</a>
+                    </td>
+                    <td>
+                        {% if i.price %}
+                        <p class='text-center'>${{'%0.2f' % i.price}} </p>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class='text-right'>
+        <a href="{{url_for('showStores')}}">Store list </a>
+    </div>
+{% endblock %}

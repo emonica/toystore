@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+{% block content %}
+    <div class = 'header clearfix text-center'>
+        <h3>Delete Toy</h3>
+    </div>
+
+    <p class="text-center"> Are you sure you want to delete this toy <mark>{{toy.name}}</mark>? </p>
+    <br><br>
+    <div class="text-center">
+        <form action="{{ url_for('deleteStoreToy', store_id = toy.store_id, toy_id = toy.id)}}" method = 'post'>
+            <button type='submit' class='btn btn-danger'>Delete</button>
+            <a class = 'btn btn-default' href = "{{url_for('showToy', store_id=toy.store_id, toy_id=toy.id)}}"> Cancel </a>
+        </form>
+    </div>
+{% endblock %}

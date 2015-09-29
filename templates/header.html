@@ -1,0 +1,35 @@
+<div class="header clearfix" id="mainheader">
+    <nav>
+        <ul class="nav nav-pills pull-right">
+            <li class="{{'active' if (url_for('latestToys') == request.url_rule.rule) }}" role="presentation">
+                <a href="{{url_for('latestToys')}}">
+                    <span class = "glyphicon glyphicon-home" aria-hidden = "true"></span>
+                    Latest
+                </a>
+            </li>
+        
+            <li class="{{'active' if (url_for('showStores') == request.url_rule.rule) }}" role="presentation">
+                <a href="{{url_for('showStores')}}">
+                    Stores
+                </a>
+            </li>
+
+            {% if 'username' not in session %}
+            <li class="{{'active' if (url_for('showLogin') == request.url_rule.rule) }}" role="presentation">
+                <a href="{{url_for('showLogin')}}">Log in</a>
+            </li>
+            <img src="/static/dots.png" class="img-circle" width="40">
+            {% else %}
+            <li class="{{'active' if (url_for('disconnect') == request.url_rule.rule) }}" role="presentation">
+                <a href="{{url_for('disconnect')}}">Log out</a>
+            </li>
+            <img src="{{session['picture']}}" class="img-circle" width="40">
+            {% endif %}
+        
+        </ul>
+    </nav>
+    <h3 class="text-muted">
+        <span class="glyphicon glyphicon-ice-lolly-tasted" aria-hidden="true"></span>
+        Happy Toys
+    </h3>
+</div>

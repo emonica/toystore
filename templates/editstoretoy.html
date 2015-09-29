@@ -1,0 +1,59 @@
+{% extends "main.html" %}
+{% block content %}
+    <div class = 'header clearfix text-center'>
+        <h3>Edit Store Toy</h3>
+    </div>
+
+    <form action="{{url_for('editStoreToy', store_id=store_id, toy_id=toy_id)}}" 
+          method = 'POST' enctype=multipart/form-data>
+        <div class = 'form-group'>
+            <label for = 'name'>Name</label>
+            <input type = 'text' maxlength = '250' name = 'name' 
+                class = 'form-control' value = '{{toy.name}}' 
+                required="true">
+        </div>
+        <div class='form-group'>    
+            <label for = 'price'>Price</label>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" pattern="\d+(\.\d(\d)?)?" 
+                    name = 'price' class = 'form-control'
+                    value={{'' if not toy.price else '%0.2f' % toy.price}}>
+            </div>
+        </div>
+        <div class='form-group'>
+            <label for = 'description'>Description</label>
+            <textarea maxlength = '250' rows='3' name = 'description' 
+                class = 'form-control'>{{toy.description}}</textarea> 
+        </div>    
+        <div class='form-group'>
+            <label for='age_min'>Minimum age</label>
+            <input type='number' name='age_min'
+                class='form-control' value='{{toy.age_min}}'>
+        </div>
+        <div class='form-group'>
+            <label for='img_text'>Toy image</label>
+            <input id='img_file' name='img_file' type='file' 
+                style='display:none' 
+                onchange="document.getElementById('img_text').value=this.value;">
+            <div class='input-group'>
+                <input id='img_text' name='img_text' 
+                    type='text' class = 'form-control' value={{toy.img_url}}>
+                <a class='input-group-addon btn btn-default' 
+                    onclick="document.getElementById('img_file').click();">
+                    Upload
+                </a>
+            </div>
+        </div>
+        <div class='form-group'>
+            <label for='url'>Website</label>
+            <input type='text' maxlength='250' name='url'
+                class='form-control' value='{{toy.url}}'>
+        </div>
+
+        <button type='submit' class ='btn btn-primary'>Edit</button>
+        <a class = 'btn btn-default'
+            href = "{{url_for('showToy', store_id=store_id, toy_id=toy_id)}}"> Cancel </a>
+
+    </form>
+{% endblock %}

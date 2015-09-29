@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+{% block content %}
+    <div class = 'header clearfix'>
+        <h3>New Store</h3>
+    </div>
+
+    <form action="{{url_for('newStore')}}" method = 'POST'>
+        <div class = 'form-group'>
+            <label for = 'name'>Name</label>
+            <input type = 'text' maxlength = '80' name = 'name' 
+                   class = 'form-control' placeholder = 'Store'>
+            
+            <label for = 'url'>Website</label>
+            <input type = 'text' maxlength = '250' name = 'url' 
+                   class = 'form-control' 
+                   placeholder = 'www.mystore.com'>
+            
+            <label for = 'address'>Address</label>
+            <textarea maxlength = '250' rows='3' name = 'address' 
+                   class = 'form-control' 
+                   placeholder = 'Street, Town, State'></textarea>     
+        </div>
+
+        <button type='submit' class ='btn btn-primary'>Create</button>
+        <a class = 'btn btn-default'
+            href = "{{url_for('showStores')}}"> Cancel </a>
+
+    </form>
+{% endblock %}

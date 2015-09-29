@@ -1,0 +1,61 @@
+{% extends "main.html" %}
+{% block content %}
+    <div class = 'header clearfix text-center'>
+        <h3>Our Stores</h3>
+    </div>
+    <div class = 'link-new text-right'>
+        <a class = 'btn btn-primary'
+             href = "{{url_for('newStore') }}">
+            <span  class="glyphicon glyphicon-plus-sign"></span>
+            Create New Store
+        </a>
+    </div>
+
+    <div class = 'flash'>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                
+                <ul>
+                {% for message in messages %}
+                    <li> <strong> {{ message }} </strong> </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class = 'table-responsive'>
+        <table class = 'table table-striped'>
+            <colgroup>
+                <col class = 'col-sm-4'>
+                <col class = 'col-sm-6'>
+                <col class = 'col-sm-2'>
+            </colgroup>
+            <tbody>
+                {% for s in stores %}
+                <tr>
+                    <td> 
+                        <a href="{{url_for('storeToys', store_id=s.id)}}">
+                            {{s.name}}
+                        </a>
+                    </td>
+                    <td>
+                        <p>{{s.url}}</p>
+                        <p>{{'' if not s.address else s.address}}</p>  
+                    </td>
+                    <td class="text-right">
+                        <a class = 'edit_delete' 
+                            href="{{url_for('editStore',store_id = s.id)}}">
+                            Edit
+                        </a> |
+                        <a class = 'edit_delete' 
+                            href="{{url_for('deleteStore', store_id = s.id)}}">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

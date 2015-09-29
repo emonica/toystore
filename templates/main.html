@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html land="en">
+<head>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+    
+<body>
+    <div class = 'container'>
+        {% include "header.html" %}
+
+        
+        <div class='table-responsive' id="main">
+            <table class='table'>
+                <colgroup>
+                    <col class='col-sm-3 col-md-2'>
+                    <col class='col-sm-9 col-md-10'>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td class='main sidebar'>
+                            {% include "sidebar.html" %}
+                        </td>
+                        <td class='main'>
+                            {% block content %}
+                            {% endblock %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
