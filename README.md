@@ -16,16 +16,19 @@ authentication, the user's photo will be displayed in the menu.
 Usage
 =====
 
+```
 python database_setup.py
 python populate_toystores.py
 python project.py
+```
 
-App is then available at http://localhost:8000
+App is then available at _http://localhost:8000_
 
 
 Archive contents
 ================
 
+```
 * database_setup.py
    Create tables User, Store, Toy
 
@@ -60,11 +63,5 @@ Archive contents
 		/storetoys.html
 		/toy.html
 
-
-
-
-* README.txt
-
-
-
-
+* README.md
+```
