@@ -97,7 +97,7 @@ def newStore():
 @app.route('/stores/<int:store_id>/edit/', methods=['GET', 'POST'])
 @login_required
 def editStore(store_id):
-    store = session.query(Store).filter_by(id=store_id).one()
+    store = session.query(Store).get(store_id)
     if store.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert(\
           'You are not authorized to edit this store. \
@@ -122,7 +122,7 @@ def editStore(store_id):
 @app.route('/stores/<int:store_id>/delete/', methods=['GET', 'POST'])
 @login_required
 def deleteStore(store_id):
-    store = session.query(Store).filter_by(id=store_id).one()
+    store = session.query(Store).get(store_id)
     if store.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert(\
           'You are not authorized to delete this store. \
@@ -140,7 +140,7 @@ def deleteStore(store_id):
 # Display toys for store <store_id>
 @app.route('/stores/<int:store_id>/')
 def storeToys(store_id):
-    store = session.query(Store).filter_by(id=store_id).one()
+    store = session.query(Store).get(store_id)
     creator = getUserInfo(store.user_id)
     toys = session.query(Toy).filter_by(store_id=store.id).all()
     if 'username' not in login_session or \
@@ -158,7 +158,7 @@ def storeToys(store_id):
 @app.route('/stores/<int:store_id>/new/', methods=['GET', 'POST'])
 @login_required
 def newStoreToy(store_id):
-    store = session.query(Store).filter_by(id=store_id).one()
+    store = session.query(Store).get(store_id)
     if store.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert(\
                 'You are not authorized to add toys to this store. \
@@ -199,7 +199,7 @@ def newStoreToy(store_id):
            methods=['GET', 'POST'])
 @login_required
 def editStoreToy(store_id, toy_id):
-    toy = session.query(Toy).filter_by(id=toy_id).one()
+    toy = session.query(Toy).get(toy_id)
     if toy.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert(\
                 'You are not authorized to edit toys to this store. \
@@ -237,7 +237,7 @@ def editStoreToy(store_id, toy_id):
            methods=['GET', 'POST'])
 @login_required
 def deleteStoreToy(store_id, toy_id):
-    toy = session.query(Toy).filter_by(id=toy_id).one()
+    toy = session.query(Toy).get(toy_id)
     if toy.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('\
             You are not authorized to delete toys at this store. \
@@ -255,7 +255,7 @@ def deleteStoreToy(store_id, toy_id):
 # Display details for a certain toy
 @app.route('/stores/<int:store_id>/<int:toy_id>/')
 def showToy(store_id, toy_id):
-    toy = session.query(Toy).filter_by(id=toy_id).one()
+    toy = session.query(Toy).get(toy_id)
     creator = getUserInfo(toy.user_id)
     if 'username' not in login_session or \
             creator.id != login_session['user_id']:
@@ -482,7 +482,7 @@ def createUser(login_session):
 
 
 def getUserInfo(user_id):
-    user = session.query(User).filter_by(id=user_id).one()
+    user = session.query(User).get(user_id)
     return user
 
 
@@ -509,7 +509,7 @@ def storesJSON():
 
 @app.route('/stores/<int:store_id>/toys/JSON/')
 def storeToysJSON(store_id):
-    store = session.query(Store).filter_by(id=store_id).one()
+    store = session.query(Store).get(store_id)
     toys = session.query(Toy).filter_by(
         store_id=store_id).all()
     return jsonify(Toys=[i.serialize for i in toys])
@@ -517,7 +517,7 @@ def storeToysJSON(store_id):
 
 @app.route('/stores/<int:store_id>/toy/<int:toy_id>/JSON/')
 def storeToyJSON(store_id, toy_id):
-    toy = session.query(Toy).filter_by(id=toy_id).one()
+    toy = session.query(Toy).get(toy_id)
     return jsonify(toy.serialize)
 
 
