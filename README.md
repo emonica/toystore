@@ -25,11 +25,11 @@ Prior to running, the app needs some basic setup for OAuth2 authentication.
     google email address and set the Product name to 'Toy Store'.
 
     In the _APIs & auth > Credentials_ section, add the following:  
-        + __Name__ - Toy Store  
-        + __Authorized JavaScript origins__ - http://localhost:8000  
-        + __Authorized redirect URIs__ - http://localhost:8000/login  
+      - __Name__ - Toy Store  
+      - __Authorized JavaScript origins__ - http://localhost:8000  
+      - __Authorized redirect URIs__ - http://localhost:8000/login  
 
-    Then download the JSON file, and save it as client_secrets.json in the 
+    Then download the JSON file, and save it as _client_secrets.json_ in the 
     same folder as project.py  
 
     Also, in _templates/login.html_, update _data-clientid_ to the one assigned
@@ -38,14 +38,14 @@ Prior to running, the app needs some basic setup for OAuth2 authentication.
 * facebook
 
     Go to _developers.facebook.com_ and create a new web app with:
-        + __Display name__ - Toy Store
-        + __Contact Email__ - your email
-        + __Site URL__ - http://localhost:8000/  
+      - __Display name__ - Toy Store  
+      - __Contact Email__ - your email  
+      - __Site URL__ - http://localhost:8000/  
 
     In _templates/login.html_, in FB.init(), update the _appId_ field to the
     App ID value given by facebook.
-    
-    Also, create a file called fb_client_secrets.json in the same folder as 
+
+    Also, create a file called _fb_client_secrets.json_ in the same folder as 
     project.py and insert the following content
 
     ```
@@ -57,8 +57,8 @@ Prior to running, the app needs some basic setup for OAuth2 authentication.
     }
     ```  
     where:
-        + __app_id__ - the facebook App ID
-        + __app_secret__ - the facebook App Secret 
+      - __app_id__ - the facebook App ID  
+      - __app_secret__ - the facebook App Secret   
 
 
 After this setup, run the following commands:
