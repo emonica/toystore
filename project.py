@@ -73,7 +73,7 @@ def login_required(func):
         if 'username' not in login_session:
             return redirect(url_for('showLogin'))
         else:
-            return func(args, kwargs)
+            return func(*args, **kwargs)
     return wrap
 
 # Add a new store if logged in
