@@ -18,6 +18,7 @@ import os
 from werkzeug import secure_filename
 from flask import send_from_directory
 from flask import g
+from functools import wraps
 
 app = Flask(__name__)
 
@@ -65,11 +66,20 @@ def showStores():
         return render_template('stores.html', stores=stores)
 
 
+# Decorator used for routes that require authentication, such as edit
+def login_required(func):
+    @wraps(func)
+    def wrap(*args, **kwargs):
+        if 'username' not in login_session:
+            return redirect(url_for('showLogin'))
+        else:
+            return func(args, kwargs)
+    return wrap
+
 # Add a new store if logged in
 @app.route('/stores/new/', methods=['GET', 'POST'])
+@login_required
 def newStore():
-    if 'username' not in login_session:
-        return redirect('/login')
     if request.method == 'POST':
         newStore = Store(name=request.form['name'],
                          user_id=login_session['user_id'],
@@ -85,9 +95,8 @@ def newStore():
 
 # Edit a store's details if store creator
 @app.route('/stores/<int:store_id>/edit/', methods=['GET', 'POST'])
+@login_required
 def editStore(store_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     store = session.query(Store).filter_by(id=store_id).one()
     if store.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert(\
@@ -111,9 +120,8 @@ def editStore(store_id):
 
 # Delete a store if store creator
 @app.route('/stores/<int:store_id>/delete/', methods=['GET', 'POST'])
+@login_required
 def deleteStore(store_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     store = session.query(Store).filter_by(id=store_id).one()
     if store.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert(\
@@ -148,9 +156,8 @@ def storeToys(store_id):
 # - upload button, for local file, in which case the file is saved to
 #   local static folder, and then local path is stored
 @app.route('/stores/<int:store_id>/new/', methods=['GET', 'POST'])
+@login_required
 def newStoreToy(store_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     store = session.query(Store).filter_by(id=store_id).one()
     if store.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert(\
@@ -190,9 +197,8 @@ def newStoreToy(store_id):
 # previous route: newStoreToy (can be web link or local file)
 @app.route('/stores/<int:store_id>/<int:toy_id>/edit/',
            methods=['GET', 'POST'])
+@login_required
 def editStoreToy(store_id, toy_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     toy = session.query(Toy).filter_by(id=toy_id).one()
     if toy.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert(\
@@ -229,9 +235,8 @@ def editStoreToy(store_id, toy_id):
 # Delete a toy if toy creator
 @app.route('/stores/<int:store_id>/<int:toy_id>/delete/',
            methods=['GET', 'POST'])
+@login_required
 def deleteStoreToy(store_id, toy_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     toy = session.query(Toy).filter_by(id=toy_id).one()
     if toy.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('\
