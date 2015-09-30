@@ -16,6 +16,48 @@ authentication, the user's photo will be displayed in the menu.
 Usage
 =====
 
+Prior to running, the app needs some basic setup for OAuth2 authentication.
+
+* Google+
+
+    Go to console.developers.google.com and create an app named Toy Store.  
+    In the _APIs & auth > Credentials > OAuth consent screen_ section, add your 
+    google email address and set the Product name to 'Toy Store'.  
+    In the _APIs & auth > Credentials_ section, add the following:  
+    		+ __Name__ - Toy Store
+    		+ __Authorized JavaScript origins__ - http://localhost:8000
+    		+ __Authorized redirect URIs__ - http://localhost:8000/login
+    Then download the JSON file, and save it as client_secrets.json in the 
+    same folder as project.py  
+    Also, in _templates/login.html_, update _data-clientid_ to the one assigned
+    by Google (Client ID for Web application).
+
+* facebook
+
+		Go to developers.facebook.com and create a new web app with:
+				+ __Display name__ - Toy Store
+				+ __Contact Email__ - your email
+				+ __Site URL__ - http://localhost:8000/  
+		In _templates/login.html_, in FB.init(), update the _appId_ field to the
+		App ID value given by facebook.
+		Also, create a file called fb_client_secrets.json in the same folder as 
+		project.py and insert the following content
+
+		```
+		{
+		  "web": {
+		    "app_id": "xyz",
+		    "app_secret": "zyx"
+		  }
+		}
+		```  
+		where:
+				+ __app_id__ - the facebook App ID
+				+ __app_secret__ - the facebook App Secret 
+
+
+After this setup, run the following commands:
+
 ```
 python database_setup.py
 python populate_toystores.py
