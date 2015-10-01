@@ -16,6 +16,8 @@ class User(Base):
     name = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
     picture = Column(String(250))
+    stores = relationship('Store', backref='user')
+    toys = relationship('Toy', backref='user')
 
 
 class Store(Base):
@@ -25,7 +27,7 @@ class Store(Base):
     url = Column(String(250))
     address = Column(String(250))
     user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship('User')
+    toys = relationship('Toy', backref='store')
 
     @property
     def serialize(self):
@@ -47,9 +49,7 @@ class Toy(Base):
     img_url = Column(String(250))
     url = Column(String(250))
     store_id = Column(Integer, ForeignKey('store.id'))
-    store = relationship('Store')
     user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship('User')
 
     @property
     def serialize(self):

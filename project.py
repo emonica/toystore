@@ -142,12 +142,12 @@ def deleteStore(store_id):
 def storeToys(store_id):
     store = session.query(Store).get(store_id)
     creator = getUserInfo(store.user_id)
-    toys = session.query(Toy).filter_by(store_id=store.id).all()
     if 'username' not in login_session or \
             creator.id != login_session['user_id']:
-        return render_template('publicstoretoys.html', store=store, toys=toys)
+        return render_template('publicstoretoys.html', store=store, 
+                                toys=store.toys)
     else:
-        return render_template('storetoys.html', store=store, toys=toys)
+        return render_template('storetoys.html', store=store, toys=store.toys)
 
 
 # Add a new toy to a certain store, including image
@@ -510,9 +510,7 @@ def storesJSON():
 @app.route('/stores/<int:store_id>/toys/JSON/')
 def storeToysJSON(store_id):
     store = session.query(Store).get(store_id)
-    toys = session.query(Toy).filter_by(
-        store_id=store_id).all()
-    return jsonify(Toys=[i.serialize for i in toys])
+    return jsonify(Toys=[i.serialize for i in store.toys])
 
 
 @app.route('/stores/<int:store_id>/toy/<int:toy_id>/JSON/')
