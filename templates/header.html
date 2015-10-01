@@ -1,5 +1,10 @@
 <div class="header clearfix" id="mainheader">
     <nav>
+        <ul class="nav pull-right">
+            <li>
+                <img src="{{'/static/dots.png' if 'username' not in session else session['picture']}}" class="img-circle" width="40">
+            </li>
+        </ul>
         <ul class="nav nav-pills pull-right">
             <li class="{{'active' if (url_for('latestToys') == request.url_rule.rule) }}" role="presentation">
                 <a href="{{url_for('latestToys')}}">
@@ -18,14 +23,11 @@
             <li class="{{'active' if (url_for('showLogin') == request.url_rule.rule) }}" role="presentation">
                 <a href="{{url_for('showLogin')}}">Log in</a>
             </li>
-            <img src="/static/dots.png" class="img-circle" width="40">
             {% else %}
             <li class="{{'active' if (url_for('disconnect') == request.url_rule.rule) }}" role="presentation">
                 <a href="{{url_for('disconnect')}}">Log out</a>
             </li>
-            <img src="{{session['picture']}}" class="img-circle" width="40">
             {% endif %}
-        
         </ul>
     </nav>
     <h3 class="text-muted">
