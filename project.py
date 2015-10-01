@@ -9,6 +9,7 @@ import random, string
 
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
+from flask.ext.seasurf import SeaSurf
 import httplib2
 import json
 import dicttoxml
@@ -22,6 +23,7 @@ from flask import g
 from functools import wraps
 
 app = Flask(__name__)
+csrf = SeaSurf(app)
 
 CLIENT_ID = json.loads(open(
     'client_secrets.json', 'r').read())['web']['client_id']

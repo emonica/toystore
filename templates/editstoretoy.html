@@ -51,6 +51,7 @@
                 class='form-control' value='{{toy.url}}'>
         </div>
 
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
         <button type='submit' class ='btn btn-primary'>Edit</button>
         <a class = 'btn btn-default'
             href = "{{url_for('showToy', store_id=store_id, toy_id=toy_id)}}"> Cancel </a>

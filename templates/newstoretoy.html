@@ -52,6 +52,7 @@
                 class='form-control' placeholder='www.mystore.com/toy1'>
         </div>
 
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
         <button type='submit' class ='btn btn-primary'>Create</button>
         <a class = 'btn btn-default'
             href = "{{url_for('storeToys', store_id=store_id)}}"> Cancel </a>

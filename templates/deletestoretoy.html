@@ -8,6 +8,7 @@
     <br><br>
     <div class="text-center">
         <form action="{{ url_for('deleteStoreToy', store_id = toy.store_id, toy_id = toy.id)}}" method = 'post'>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
             <button type='submit' class='btn btn-danger'>Delete</button>
             <a class = 'btn btn-default' href = "{{url_for('showToy', store_id=toy.store_id, toy_id=toy.id)}}"> Cancel </a>
         </form>
