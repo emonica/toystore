@@ -11,6 +11,7 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import httplib2
 import json
+import dicttoxml
 from flask import make_response
 import requests
 
@@ -362,7 +363,7 @@ def gconnect():
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-    # Obtain authorization code    
+    # Obtain authorization code
     code = request.data.decode('utf-8')
 
     try:
@@ -503,19 +504,34 @@ def allowed_file(filename):
 @app.route('/stores/JSON/')
 def storesJSON():
     stores = session.query(Store).all()
-    return jsonify(rlist=[r.serialize for r in stores])
+    return jsonify(slist=[store.serialize for store in stores])
 
 
 @app.route('/stores/<int:store_id>/toys/JSON/')
 def storeToysJSON(store_id):
     store = session.query(Store).get(store_id)
-    return jsonify(Toys=[i.serialize for i in store.toys])
+    return jsonify(Toys=[toy.serialize for toy in store.toys])
 
 
 @app.route('/stores/<int:store_id>/toy/<int:toy_id>/JSON/')
 def storeToyJSON(store_id, toy_id):
     toy = session.query(Toy).get(toy_id)
     return jsonify(toy.serialize)
+
+
+# XML endpoints
+@app.route('/stores/XML/')
+def storesXML():
+    stores = session.query(Store).all()
+    slist=[store.serialize for store in stores]
+    return dicttoxml.dicttoxml(slist)
+
+
+@app.route('/stores/<int:store_id>/toys/XML/')
+def storeToysXML(store_id):
+    store = session.query(Store).get(store_id)
+    toys = [toy.serialize for toy in store.toys]
+    return dicttoxml.dicttoxml(toys)
 
 
 # Disconnect based on provider
