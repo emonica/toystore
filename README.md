@@ -16,6 +16,11 @@ authentication, the user's photo will be displayed in the menu.
 Usage
 =====
 
+I used the Vagrant virtual environment provided by udacity, and on top 
+of that I also installed:
+- dicttoxml 1.6.6
+- Flask-SeaSurf 0.2.1
+
 Prior to running, the app needs some basic setup for OAuth2 authentication.
 
 * Google+
@@ -70,6 +75,14 @@ python project.py
 ```
 
 App is then available at _http://localhost:8000_
+
+Access JSON and XML endpoints here:
+_http://localhost:8000/stores/JSON/_
+_http://localhost:8000/stores/<int:store_id>/toys/JSON/_
+_http://localhost:8000/stores/<int:store_id>/toy/<int:toy_id>/JSON/_
+_http://localhost:8000/stores/XML/_
+_http://localhost:8000/stores/<int:store_id>/toys/XML/_
+_http://localhost:8000/stores/<int:store_id>/toy/<int:toy_id>/XML/_
 
 
 Archive contents

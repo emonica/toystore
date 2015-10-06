@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from flask import flash, jsonify
+from flask import flash, jsonify, Response
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Store, Toy, User
@@ -526,14 +526,20 @@ def storeToyJSON(store_id, toy_id):
 def storesXML():
     stores = session.query(Store).all()
     slist=[store.serialize for store in stores]
-    return dicttoxml.dicttoxml(slist)
+    return Response(dicttoxml.dicttoxml(slist), mimetype='text/xml')
 
 
 @app.route('/stores/<int:store_id>/toys/XML/')
 def storeToysXML(store_id):
     store = session.query(Store).get(store_id)
     toys = [toy.serialize for toy in store.toys]
-    return dicttoxml.dicttoxml(toys)
+    return Response(dicttoxml.dicttoxml(toys), mimetype='text/xml')
+
+
+@app.route('/stores/<int:store_id>/toy/<int:toy_id>/XML/')
+def storeToyXML(store_id, toy_id):
+    toy = session.query(Toy).get(toy_id).serialize
+    return Response(dicttoxml.dicttoxml(toy), mimetype='text/xml')
 
 
 # Disconnect based on provider
