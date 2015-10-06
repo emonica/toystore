@@ -173,14 +173,13 @@ def newStoreToy(store_id):
             if float(request.form['price']):
                 fprice = float(request.form['price'])
         img_url = ""
-        if request.form['img_text']:
+        file = request.files['img_file']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            img_url = "/static/" + filename
+        elif request.form['img_text']:
             img_url = request.form['img_text']
-        else:
-            file = request.files['img_file']
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                img_url = "/static/" + filename
         newToy = Toy(
             name=request.form['name'], description=request.form['description'],
             price=fprice,
@@ -278,6 +277,7 @@ def showLogin():
 
 # FB log in
 @app.route('/fbconnect', methods=['POST'])
+@csrf.exempt
 def fbconnect():
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
@@ -359,6 +359,7 @@ def fbdisconnect():
 
 # G+ log in
 @app.route('/gconnect', methods=['POST'])
+@csrf.exempt
 def gconnect():
     # Validate state token
     if request.args.get('state') != login_session['state']:

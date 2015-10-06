@@ -36,7 +36,7 @@
             <label>Toy image </label>
             <input id='img_file' name='img_file' type='file' 
                 style='display:none' 
-                onchange="document.getElementById('img_text').value=this.value;">
+                onchange="document.getElementById('img_text').value=this.files[0].name;">
             <div class='input-group'>
                 <input id='img_text' name='img_text' 
                     type='text' class = 'form-control'>
